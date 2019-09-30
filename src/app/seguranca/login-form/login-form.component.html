@@ -1,0 +1,27 @@
+<div class="mx-auto container-login">
+
+     <div class="ui-g">
+          <div class="ui-g-12">
+               <h2>Login</h2>
+
+          </div>
+     </div>
+     <form #ngF="ngForm" >
+          <div class="ui-g ui-fluid">
+               <div class="ui-g-12">
+                    <input pInputText placeholder="Email" #email email ngModel name="email" required>
+
+               </div>
+               <div class="ui-g-12">
+                    <input pInputText type="password" placeholder="Senha" #senha ngModel name="senha" required>
+
+               </div>
+               <div class="ui-g-12">
+                    <button pButton type="button" (click)="entrar(email.value, senha.value)" [disabled]="ngF.invalid" label="Entrar"></button>
+
+               </div>
+          </div>
+     </form>
+
+
+</div>

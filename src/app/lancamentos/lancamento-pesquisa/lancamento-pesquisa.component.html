@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="ui-g">
+     <form autocomplete="off" #ngF="ngForm" (ngSubmit)="pesquisar()">
+          <div class="ui-g-12">
+               <h1>Lançamentos</h1>
+          </div>
+
+          <div class="ui-g-12 ui-fluid">
+               <label>Descrição</label>
+               <input type="text" pInputText [(ngModel)]="lancamentoFiltro.descricao"  name="descricao" >
+          </div>
+
+          <div class="ui-g-12" >
+               <label for="" style="display:
+               block">Vencimento</label>
+               <p-calendar [inputStyle]="{ width: '95px' }" name="dataVencimentoInicio" dateFormat="dd/mm/yy" [(ngModel)]="lancamentoFiltro.dataVencimentoInicio"></p-calendar>
+
+
+               <label for="">Até</label>
+               <p-calendar [inputStyle]="{ width: '95px' }" name="dataVencimentoFim" dateFormat="dd/mm/yy" [(ngModel)]="lancamentoFiltro.dataVencimentoFim"></p-calendar>
+          </div>
+
+          <div class="ui-g-12">
+               <button pButton type="submit" label="Pesquisar"></button>
+               <button type="button" (click)="limparBusca(ngF)" pTooltip="Buscar Todos"  tooltipPosition="right" style="margin-left: 1%" pButton icon="pi pi-refresh"></button>
+          </div>
+     </form>
+    <div class="ui-g">
+      <div class="ui-g-12">
+               <p-dataTable emptyMessage="Lancamentos não encontrados" [value]="lancamentos" [responsive]="true"
+               [paginator]="true" [rows]="5" [lazy]="true" [totalRecords]="totalDeElementos" (onLazyLoad)="aoMudarPagina($event)" #tabela>
+                         <p-column field="codigoPessoa" header="Pessoa"></p-column>
+                      <p-column field="descricao" header="Descrição"></p-column>
+                      <p-column header="Vencimento" styleClass="col-data">
+                          <ng-template let-lanc="rowData" pTemplate="body">
+                              <span>{{ lanc.dataVencimento | date:'dd/MM/yyyy' }}</span>
+                          </ng-template>
+                      </p-column>
+                      <p-column header="Pagamento" styleClass="col-data">
+                          <ng-template let-lanc="rowData" pTemplate="body">
+                              <span>{{ lanc.dataPagamento | date:'dd/MM/yyyy' }}</span>
+                          </ng-template>
+                      </p-column>
+                      <p-column field="valor" header="Valor" styleClass="col-valor">
+                        <ng-template let-lanc="rowData" pTemplate="body">
+                          <span [style.color]="lanc.tipo === 'DESPESA' ? 'red' : 'blue'">{{ lanc.valor | number:'1.2-2' }}</span>
+                        </ng-template>
+                      </p-column>
+                      <p-column styleClass="col-acoes">
+                          <ng-template let-lanc="rowData" pTemplate="body">
+
+                                   <button pButton [disabled]="!auth.temPermissao('ROLE_CADASTRAR_LANCAMENTO')" icon="pi pi-pencil" style="width: 33px; margin-right: 6px; color:white" pTooltip="Editar" [routerLink]="['/lancamentos', lanc.codigo]" tooltipPosition="top"></button>
+
+                                   <button  pButton icon="pi pi-trash" [disabled]="!auth.temPermissao('ROLE_REMOVER_LANCAMENTO')" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(lanc)"></button>
+
+                          </ng-template>
+                      </p-column>
+
+                    </p-dataTable>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <button pButton routerLink="/lancamentos/novo" [disabled]="!auth.temPermissao('ROLE_CADASTRAR_LANCAMENTO')" label="Novo Lançamento"></button>
+    </div>
+  </div>
+
+</div>

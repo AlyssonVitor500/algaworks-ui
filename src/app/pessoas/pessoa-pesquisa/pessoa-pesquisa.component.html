@@ -1,0 +1,66 @@
+<div class="container">
+
+     <div class="ui-g">
+          <div class="ui-g-12">
+               <h1>Pessoas</h1>
+          </div>
+     </div>
+
+     <form autocomplete="off" #ngF="ngForm" (ngSubmit)="pesquisarPessoa()">
+
+          <div class="ui-g">
+               <div class="ui-g-12 ui-fluid">
+                    <strong>Nome</strong> <input type="text" pInputText [(ngModel)]="filtro.nome" name="nome" id="" >
+               </div>
+          </div>
+
+          <div class="ui-g">
+               <div class="ui-g-12">
+                    <button type="submit" pButton label="Pesquisar"></button>
+                    <button type="button" (click)="limparBusca(ngF)" pTooltip="Buscar Todos"  tooltipPosition="right" style="margin-left: 1%" pButton icon="pi pi-refresh"></button>
+               </div>
+          </div>
+
+     </form>
+
+
+     <div class="ui-g">
+          <div class="ui-g-12">
+
+               <p-dataTable emptyMessage="Pessoa não encontrada" [value]="pessoas" [responsive]="true" [paginator]="true" [rows]="5" [totalRecords]="total" [lazy]="true" (onLazyLoad)="aoMudarPagina($event)" #tabela>
+                    <p-column field="nome" header="Nome"></p-column>
+                    <p-column field="endereco.cidade" header="Cidade"></p-column>
+                    <p-column  field="endereco.estado" header="Estado"  ></p-column>
+                    <p-column field="ativo" header="Status">
+                         <ng-template pTemplate="body"   let-pess="rowData">
+                              <div>
+                                   <a href="javascript:;" class="linkFormatado" *ngIf="pess.ativo == true"  pTooltip="Inativar" (click)="alterarAtivo(pess)" tooltipPosition="top"> <div class="condicao-ativo"></div></a>
+
+
+                                   <a href="javascript:;" class="linkFormatado" (click)="alterarAtivo(pess)" *ngIf="pess.ativo == false"  pTooltip="Ativar" tooltipPosition="top"><div class="condicao-inativo"></div></a>
+                              </div>
+
+                         </ng-template>
+                    </p-column>
+
+                    <p-column styleClass="col-button" styleClass="col-acoes">
+                         <ng-template pTemplate="body" let-pessoa="rowData">
+                              <button [routerLink]="['/pessoas', pessoa.codigo]"  pButton tooltipPosition="top" class="editar-e-remover-btn  " [disabled]="!auth.temPermissao('ROLE_CADASTRAR_PESSOA')"  pTooltip="Editar" icon="pi pi-pencil"> </button>
+
+                              <button  pButton tooltipPosition="top" style="color: white" pTooltip="Excluir" class="editar-e-remover-btn" [disabled]="!auth.temPermissao('ROLE_REMOVER_PESSOA')" (click)="verificacaoExcluisao(pessoa)"  icon="pi pi-trash"></button>
+
+                         </ng-template>
+                    </p-column>
+
+               </p-dataTable>
+          </div>
+     </div>
+
+
+     <div class="ui-g">
+          <div class="ui-g-12">
+               <button pButton routerLink="/pessoas/novo" [disabled]="!auth.temPermissao('ROLE_CADASTRAR_PESSOA')" label="Nova Pessoa"></button>
+          </div>
+     </div>
+
+</div>

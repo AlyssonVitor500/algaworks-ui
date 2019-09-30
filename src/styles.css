@@ -1,0 +1,92 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "~../node_modules/ng2-toasty/style-bootstrap.css";
+@import "~../node_modules/primeicons/primeicons.css";
+@import "~../node_modules/primeng/resources/themes/omega/theme.css";
+@import "~../node_modules/primeng/resources/primeng.css";
+
+
+/* Medias */
+
+@media(min-width: 1200px){
+  .container{
+    width: 1170px;
+    margin: 0 auto;
+
+  }
+
+
+}
+@media(min-width: 875px){
+     .container-login {
+          width: 50vw;
+     }
+
+}
+@media(max-width: 874px){
+     .container-login {
+          width: 80vw;
+     }
+
+}
+
+
+
+
+
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #404C51;
+  margin: 0;
+}
+
+main {
+  transition: .2s;
+}
+
+label {
+  font-weight: bold;
+
+}
+
+.col-valor{
+  width: 120px;
+  text-align:right;
+}
+
+.col-data{
+  width: 120px;
+  text-align:center;
+
+}
+
+.col-acoes{
+  width:125px;
+
+
+}
+
+.col-acoes a {
+     margin: 0 15%;
+}
+
+a{
+     color:#337ab7;
+
+
+}
+.condicao-inativo , .condicao-ativo {
+     width: 30px;
+     height: 30px;
+     border-radius: 100%;
+}
+.condicao-inativo {
+     background-color: #d40e49;
+
+}
+.condicao-ativo {
+     background-color: #13d373;
+
+}

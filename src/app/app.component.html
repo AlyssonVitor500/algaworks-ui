@@ -1,0 +1,21 @@
+<app-navbar *ngIf="this.exibindoNavbar()"></app-navbar>
+
+<router-outlet></router-outlet>
+
+<ng2-toasty></ng2-toasty>
+<p-confirmDialog header="Confirmação" icon="pi pi-question-circle" #confirmacao>
+     <p-footer>
+          <button pButton icon="pi pi-check" (click)="confirmacao.accept()" label="Sim"></button>
+          <button pButton icon="pi pi-times" (click)="confirmacao.reject()" label="Não"></button>
+     </p-footer>
+</p-confirmDialog>
+
+
+
+
+
+
+
+
+
+
