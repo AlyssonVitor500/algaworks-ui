@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
 
-     if (this.auth.isAccessTokenInvalid()) {
+     if (this.auth.isAccessTokenInvalid() ) {
 
         return this.auth.obterNovoAcessToken()
         .then(() => {
@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate {
 
 
 
-    } else
+    }else
     if(next.data.roles && !this.auth.temQualquerPermissao(next.data.roles)){
          this.router.navigate(['/pagina-nao-autorizada']);
          return false;

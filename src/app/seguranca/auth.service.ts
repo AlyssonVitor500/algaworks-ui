@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HandleService } from './../core/handle.service';
 import { Router } from '@angular/router';
@@ -11,28 +12,24 @@ export class NotLoggedIn {}
 })
 export class AuthService {
      private jwtHelper = new JwtHelperService();
+     private oauthTokenUrl: string;
+     private logoutPath: string;
+     jwtPayload: any;
      constructor(
           private http: HttpClient,
-
           private router: Router,
           private handle: HandleService
           ){
 
                     this.carregarJwtPayload();
+                    this.oauthTokenUrl = `${environment.apiUrl}/oauth/token`;
+                    this.logoutPath = `${environment.apiUrl}/tokens/revoke`;
 
           }
 
-     private oauthTokenUrl = 'http://localhost:8080/oauth/token';
-     private logoutPath = 'http://localhost:8080/tokens/revoke';
-     jwtPayload: any;
      private headers = new HttpHeaders({
-         'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: 'Basic YW5ndWxhcjpAbmd1bEByMA=='
+         'Content-Type': 'application/x-www-form-urlencoded'
      });
-
-     temPermissao(permissao: string){
-          return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
-     }
 
      entrar(usuario: string, password: string): Promise<void> {
 
@@ -58,9 +55,17 @@ export class AuthService {
 
                }
                this.handle.handle(resposta);
-               console.log(response);
+
           });
+
+
      }
+
+     temPermissao(permissao: string){
+          return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
+     }
+
+
      temQualquerPermissao(roles) {
           for(const role of roles){
                if(this.temPermissao(role)){
@@ -76,6 +81,7 @@ export class AuthService {
           .toPromise()
           .then(token => {
                this.armazenarToken(JSON.parse(JSON.stringify(token)).access_token);
+
                if(this.isAccessTokenInvalid()){
                     throw new NotLoggedIn();
 
@@ -88,6 +94,7 @@ export class AuthService {
                return Promise.resolve(null);
           })
      }
+
      armazenarToken(token: string){
           this.jwtPayload = this.jwtHelper.decodeToken(token);
           localStorage.setItem('token', token);
@@ -117,5 +124,6 @@ export class AuthService {
           this.jwtPayload = null;
           localStorage.removeItem('token');
      }
+
 
 }

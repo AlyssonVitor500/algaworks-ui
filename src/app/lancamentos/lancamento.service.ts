@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Lancamento } from './../core/model';
 import { HandleService } from './../core/handle.service';
 
@@ -24,13 +25,17 @@ export class LancamentoService {
 
 
 
-     lancamentosUrl = 'http://localhost:8080/lancamentos';
+     lancamentosUrl: string;
 
-     constructor(private http: HttpClient, private auth: AuthService) { }
+     constructor(private http: HttpClient, private auth: AuthService) {
+
+          this.lancamentosUrl = ` ${environment.apiUrl}/lancamentos`;
+      }
 
       headers = new HttpHeaders({
           'Content-Type':  'application/json'
-          // ,Authorization: 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
+          // Authorization: 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
+
      });
 
 
@@ -69,7 +74,7 @@ export class LancamentoService {
           return this.http.get(`${this.lancamentosUrl}?resumo`, {params})
        .toPromise()
        .then(response => {
-               console.log(response);
+
                return response;
        });
 
@@ -142,3 +147,4 @@ export class LancamentoService {
      }
 
 }
+

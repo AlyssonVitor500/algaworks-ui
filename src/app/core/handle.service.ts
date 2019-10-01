@@ -1,8 +1,8 @@
-import { NotLoggedIn } from './../seguranca/auth.service';
 import { Router } from '@angular/router';
 
 import { ToastyService } from 'ng2-toasty';
 import { Injectable } from '@angular/core';
+import { NotLoggedIn } from './../seguranca/auth.service';
 
 @Injectable({
   providedIn: 'root'

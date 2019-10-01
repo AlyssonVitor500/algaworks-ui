@@ -11,8 +11,8 @@ import { AuthService } from 'src/app/seguranca/auth.service';
 })
 export class NavbarComponent {
 
-  constructor(private auth: AuthService, private router: Router, private handle : HandleService){
-       console.log(this.auth.isAccessTokenInvalid());
+  constructor(private auth: AuthService, private router: Router, private handle: HandleService){
+
   }
 
   logout() {

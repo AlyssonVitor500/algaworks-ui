@@ -1,3 +1,4 @@
+import { ProgressBarService } from './../shared/progress-bar.service';
 import { RouterModule } from '@angular/router';
 import { CategoriasService } from './../categorias/categorias.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -17,7 +18,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
 import { Title } from '@angular/platform-browser';
 import { SegurancaModule } from '../seguranca/seguranca.module';
 import { AuthService } from '../seguranca/auth.service';
-
+import {ProgressBarModule} from 'primeng/progressbar';
 
 import { InterceptorModule } from '../seguranca/interceptor.module';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -38,7 +39,8 @@ import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.componen
     SharedModule,
     RouterModule,
     SegurancaModule,
-   InterceptorModule
+   InterceptorModule,
+   ProgressBarModule
 
 
   ],
@@ -49,7 +51,8 @@ import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.componen
      ConfirmDialogModule,
      PessoasModule,
      LancamentosModule,
-     SharedModule
+     SharedModule,
+     ProgressBarModule
 ],
   providers:[
      LancamentoService,
@@ -58,7 +61,8 @@ import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.componen
      ConfirmationService,
      CategoriasService,
      Title,
-     AuthService
+     AuthService,
+     ProgressBarService
   ]
 })
 export class CoreModule { }

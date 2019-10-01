@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Pessoa } from '../core/model';
@@ -17,7 +18,7 @@ export class PessoaFilter{
 
 export class PessoasService {
 
-     origem = "http://localhost:8080/pessoa";
+     origem : string
 
 
      headers = new HttpHeaders({
@@ -25,7 +26,9 @@ export class PessoasService {
           // ,Authorization: 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
      });
 
-     constructor(private http: HttpClient, private auth: AuthService) { }
+     constructor(private http: HttpClient, private auth: AuthService) {
+          this.origem = ` ${environment.apiUrl}/pessoa` ;
+     }
 
      pesquisar(filtro: PessoaFilter): Promise<any>{
           this.renovarAccessToken();

@@ -1,3 +1,4 @@
+import { ProgressBarService } from './shared/progress-bar.service';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { ToastyConfig } from 'ng2-toasty';
@@ -9,12 +10,17 @@ import { ToastyConfig } from 'ng2-toasty';
 })
 export class AppComponent {
 
+     showProgressBar: boolean;
 
      constructor(
           private toastyConfig: ToastyConfig,
-          private router: Router
+          private router: Router,
+          private progressBarService: ProgressBarService
      )  {
           this.toastyConfig.theme = 'bootstrap';
+          this.showProgressBar = false;
+          this.progressBarService.getObservable()
+            .subscribe(show => this.showProgressBar = show);
 
      }
 
