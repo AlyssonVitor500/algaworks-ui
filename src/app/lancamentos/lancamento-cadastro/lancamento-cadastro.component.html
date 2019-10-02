@@ -60,7 +60,7 @@
            <textarea pInputTextarea rows="3" name="observacao" [(ngModel)]="lancamento.observacao"></textarea>
          </div>
          <div class="ui-g-12">
-           <button pButton type="submit" [disabled]="!ngF.valid" class="ui-button-primary" label="Salvar"></button>
+           <button pButton type="submit" class="ui-button-primary" label="Salvar"></button>
            <button (click)="novo(ngF)" [ngStyle]="{'margin-left': '3px'}"  type="button"  pButton label="Novo" class="ui-button-info" ></button>
            <a routerLink="/lancamentos" style="margin-left: 0.8%;">Voltar para a pesquisa</a>
          </div>

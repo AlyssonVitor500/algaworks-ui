@@ -51,7 +51,7 @@
 
                                    <button pButton [disabled]="!auth.temPermissao('ROLE_CADASTRAR_LANCAMENTO')" icon="pi pi-pencil" style="width: 33px; margin-right: 6px; color:white" pTooltip="Editar" [routerLink]="['/lancamentos', lanc.codigo]" tooltipPosition="top"></button>
 
-                                   <button  pButton icon="pi pi-trash" [disabled]="!auth.temPermissao('ROLE_REMOVER_LANCAMENTO')" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(lanc)"></button>
+                                   <button  pButton icon="pi pi-trash" [disabled]="!auth.temPermissao('ROLE_REMOVER_LANCAMENTO')" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(lanc,ngF)"></button>
 
                           </ng-template>
                       </p-column>

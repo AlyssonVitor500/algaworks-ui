@@ -75,21 +75,22 @@ export class LancamentoPesquisaComponent implements OnInit {
           this.pesquisar(this.paginaAtual);
      }
 
-     confirmarExclusao(lancamento: any){
+     confirmarExclusao(lancamento: any, f: FormControl){
           this.confirmService.confirm({
                message: 'Você tem certeza que deseja excluir?',
                accept: () => {
-                    this.excluir(lancamento);
+                    this.excluir(lancamento, f);
                }
           });
      }
 
-     excluir(lancamento: any){
+     excluir(lancamento: any, f: FormControl){
 
           this.lancamentoService.excluir(lancamento.codigo)
           .then(() => {
                 this.temRegistroNaPagina(this.paginaAtual);
-                this.pesquisar(this.paginaAtual);
+                f.reset();
+                this.pesquisar(0);
                 this.toastyService.success('Apagado com Sucesso!');
 
 

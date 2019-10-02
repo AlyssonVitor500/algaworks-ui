@@ -91,7 +91,7 @@ export class LancamentoService {
           this.renovarAccessToken();
 
           return this.http.post(this.lancamentosUrl,
-              JSON.stringify(lancamento))
+              JSON.stringify(lancamento), {headers: this.headers})
             .toPromise()
           .then(response => response);
         }

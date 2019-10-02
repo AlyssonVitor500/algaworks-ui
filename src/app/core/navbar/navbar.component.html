@@ -15,7 +15,7 @@
       <li class="navbar-menuitem" routerLinkActive="ativo"
       *ngIf="auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO')" ><a routerLink="/lancamentos">Lançamentos</a></li>
       <li class="navbar-menuitem" *ngIf="auth.temPermissao('ROLE_PESQUISAR_PESSOA')" routerLinkActive="ativo"><a routerLink="/pessoas">Pessoas</a></li>
-      <li class="navbar-menuitem"  ><a (click)="logout()">Logout</a></li>
+      <li class="navbar-menuitem"  style="cursor: pointer"><a (click)="logout()">Logout</a></li>
     </ul>
 
 </div>
