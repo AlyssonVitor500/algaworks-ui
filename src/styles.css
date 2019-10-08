@@ -20,17 +20,16 @@
 }
 @media(min-width: 875px){
      .container-login {
-          width: 50vw;
+          width: 40vw;
      }
 
 }
 @media(max-width: 874px){
      .container-login {
-          width: 80vw;
+          width: 60vw;
      }
 
 }
-
 
 
 

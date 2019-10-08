@@ -1,3 +1,4 @@
+import { EventEmitterService } from './../../event-emitter.service';
 import { AuthService } from 'src/app/seguranca/auth.service';
 
 import { FormControl } from '@angular/forms';
@@ -31,6 +32,7 @@ export class PessoaPesquisaComponent implements OnInit{
      pessoas = [];
      @ViewChild('tabela', {static: false})
      tabela;
+     display: boolean;
 
      ngOnInit() {
           this.title.setTitle('Listagem de Pessoas');
@@ -101,6 +103,11 @@ export class PessoaPesquisaComponent implements OnInit{
           } else {
                this.pesquisarPessoa();
           }
+     }
+
+     adicionarNovo(){
+        this.display = true;
+        EventEmitterService.get('cadastrarPessoa').emit();
      }
 
 }

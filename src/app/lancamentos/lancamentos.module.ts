@@ -2,7 +2,7 @@ import { AppModule } from './../app.module';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { DialogModule } from 'primeng/dialog';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
@@ -42,7 +42,8 @@ import { LancamentosRoutingModule } from './lancamentos-routing.module';
      CurrencyMaskModule,
 
      SharedModule,
-     LancamentosRoutingModule
+     LancamentosRoutingModule,
+     DialogModule
 
 
    ],

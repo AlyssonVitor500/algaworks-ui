@@ -1,3 +1,7 @@
+<p-dialog [draggable]="false"  [dismissableMask]="true" [showHeader]="true" [closeOnEscape]="true" [blockScroll]="true"  [modal]="true" [responsive]="true" [baseZIndex]="10000" [(visible)]="display">
+  <app-pessoa-cadastro></app-pessoa-cadastro>
+</p-dialog>
+
 <div class="container">
 
      <div class="ui-g">
@@ -59,7 +63,7 @@
 
      <div class="ui-g">
           <div class="ui-g-12">
-               <button pButton routerLink="/pessoas/novo" [disabled]="!auth.temPermissao('ROLE_CADASTRAR_PESSOA')" label="Nova Pessoa"></button>
+               <button pButton (click)="adicionarNovo()" [disabled]="!auth.temPermissao('ROLE_CADASTRAR_PESSOA')" label="Nova Pessoa"></button>
           </div>
      </div>
 

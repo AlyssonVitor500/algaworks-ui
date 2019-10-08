@@ -1,12 +1,16 @@
-<div class="mx-auto container-login">
+<div class="container-fluid linha">
 
-     <div class="ui-g">
+</div>
+
+<div class="mx-auto container-login" style="margin-top: 13%;">
+
+     <div class="ui-g mt-5">
           <div class="ui-g-12">
-               <h2>Login</h2>
+               <h2 class="text-center">Login</h2>
 
           </div>
      </div>
-     <form #ngF="ngForm" >
+     <form #ngF="ngForm" autocomplete="offy">
           <div class="ui-g ui-fluid">
                <div class="ui-g-12">
                     <input pInputText placeholder="Email" #email email ngModel name="email" required>

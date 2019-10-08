@@ -1,3 +1,5 @@
+import { Lancamento } from './../../core/model';
+import { EventEmitterService } from './../../event-emitter.service';
 import { AuthService } from 'src/app/seguranca/auth.service';
 import { FormControl } from '@angular/forms';
 import { HandleService } from './../../core/handle.service';
@@ -24,7 +26,7 @@ export class LancamentoPesquisaComponent implements OnInit {
      voltaParaPagina = this.totalDeElementosNaPagina - 1;
      lancamentos = [  ];
      paginaAtual = 0;
-
+     display: boolean;
      @ViewChild('tabela', {static: false}) //----> para pegar valor do p-dataTable
       grid;
 
@@ -36,7 +38,15 @@ export class LancamentoPesquisaComponent implements OnInit {
           private handleService: HandleService,
           private title: Title,
           private auth: AuthService
-     ) { }
+     ) {
+        EventEmitterService.get('refreshTable').subscribe(() => {
+            this.pesquisar();
+        });
+        EventEmitterService.get('fecharModal').subscribe(() => {
+          this.display = false;
+      });
+
+     }
 
      ngOnInit() {
           this.title.setTitle('Pesquisa de Lancamentos');
@@ -109,6 +119,18 @@ export class LancamentoPesquisaComponent implements OnInit {
                 }
            }
 
+     }
+
+
+     adicionarNovaPessoa() {
+        this.display = true;
+        EventEmitterService.get('ativarNovo').emit(true);
+     }
+
+
+     ativarEdicao(objeto: Lancamento) {
+        this.display = true;
+        EventEmitterService.get('ativarEdicao').emit(objeto.codigo);
      }
 
 }

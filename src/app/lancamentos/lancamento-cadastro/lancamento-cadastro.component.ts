@@ -1,8 +1,9 @@
+import { EventEmitterService } from './../../event-emitter.service';
 import { ToastyService } from 'ng2-toasty';
 import { LancamentoService } from './../lancamento.service';
 import { Lancamento } from './../../core/model';
 import { HandleService } from './../../core/handle.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoriasService } from 'src/app/categorias/categorias.service';
 import { PessoasService } from 'src/app/pessoas/pessoas.service';
 import { FormControl, FormsModule } from '@angular/forms';
@@ -16,6 +17,10 @@ import { Title } from '@angular/platform-browser';
 })
 export class LancamentoCadastroComponent  implements OnInit{
 
+
+    @ViewChild('ngF', {static: false}) form;
+
+
      constructor(
           private categoriaService: CategoriasService,
           private handleService: HandleService,
@@ -25,7 +30,18 @@ export class LancamentoCadastroComponent  implements OnInit{
           private route: ActivatedRoute,
           private router: Router,
           private title: Title
-          ){}
+          ){
+              EventEmitterService.get('ativarEdicao').subscribe(objeto =>{
+
+                   this.carregarLancamento(objeto);
+                });
+                EventEmitterService.get('ativarNovo').subscribe(() => {
+
+                    this.novo(this.form);
+
+                });
+
+          }
 
      tipos = [
           { label: 'Receita', value: 'RECEITA' },
@@ -37,12 +53,7 @@ export class LancamentoCadastroComponent  implements OnInit{
 
 
         ngOnInit() {
-               // Pega o Path :codigo
-               const codigoLancamento = this.route.snapshot.params['codigo'];
 
-               if (codigoLancamento) {
-                 this.carregarLancamento(codigoLancamento);
-               }
 
                this.title.setTitle('Novo Lancamento');
 
@@ -54,12 +65,21 @@ export class LancamentoCadastroComponent  implements OnInit{
 
         }
 
+        ngOnDestroy() {
+          EventEmitterService.get('ativarEdicao').subscribe(objeto => {    this.carregarLancamento(objeto);
+         }).unsubscribe();
+
+         EventEmitterService.get('ativarNovo').subscribe(() => {
+             this.novo(this.form);
+           }).unsubscribe();
+        }
 
 
 
         carregarLancamento(codigo: number){
-               this.lancamentoService.buscarPorCodigo(this.route.snapshot.params['codigo'])
+               this.lancamentoService.buscarPorCodigo(codigo)
                .then(response => {
+                    console.log(response);
                     this.lancamento =  response;
                     this.atualizarTituloEdicao();
                })
@@ -96,9 +116,12 @@ export class LancamentoCadastroComponent  implements OnInit{
           adicionarLancamento(f: FormControl) {
                this.lancamentoService.adicionar(this.lancamento)
                .then(lancamentoAdicionado => {
-                    this.router.navigate(['/lancamentos', lancamentoAdicionado.codigo]);
+
 
                this.toasty.success('Lançamento adicionado com sucesso!');
+
+               EventEmitterService.get('refreshTable').emit();
+               EventEmitterService.get('fecharModal').emit();
              })
              .catch(erro => this.handleService.handle(erro));
 
@@ -112,6 +135,9 @@ export class LancamentoCadastroComponent  implements OnInit{
                     this.lancamento = response;
                     this.atualizarTituloEdicao();
                this.toasty.success('Lancamento editado com sucesso!');
+               EventEmitterService.get('refreshTable').emit();
+               EventEmitterService.get('fecharModal').emit();
+
              })
              .catch(erro => {this.handleService.handle(erro); console.log(erro);});
 
@@ -133,7 +159,8 @@ export class LancamentoCadastroComponent  implements OnInit{
           }.bind(this), 1);
 
 
-          this.router.navigate(['/lancamentos/novo']);
+
+
         }
 
         atualizarTituloEdicao() {

@@ -12,6 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PessoaPesquisaComponent } from './pessoas/pessoa-pesquisa/pessoa-pesquisa.component';
 import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
 import { CommonModule } from '@angular/common';
+import { EventEmitterService } from './event-emitter.service';
 
 
 
@@ -34,7 +35,7 @@ import { CommonModule } from '@angular/common';
 
 
   ],
-  providers: [],
+  providers: [ EventEmitterService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

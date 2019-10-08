@@ -3,9 +3,11 @@ import { Router, RouterLinkActive, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { HandleService } from './../../core/handle.service';
 import { Pessoa } from './../../core/model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PessoasService } from '../pessoas.service';
 import { ToastyService } from 'ng2-toasty';
+import { EventEmitterService } from './../../event-emitter.service';
+import { format } from 'url';
 
 @Component({
   selector: 'app-pessoa-cadastro',
@@ -14,6 +16,7 @@ import { ToastyService } from 'ng2-toasty';
 })
 export class PessoaCadastroComponent implements OnInit  {
 
+    @ViewChild('ngF', {static: false}) form;
 
      pessoa = new Pessoa();
 
@@ -24,7 +27,13 @@ export class PessoaCadastroComponent implements OnInit  {
        private router: Router,
        private route: ActivatedRoute,
        private title: Title
-     ) { }
+     ) {
+
+        EventEmitterService.get('adicionarPessoa').subscribe(() => {
+            this.novo(this.form);
+        });
+
+     }
 
      ngOnInit() {
           const codigoParams = this.route.snapshot.params['codigo'];
@@ -88,11 +97,8 @@ export class PessoaCadastroComponent implements OnInit  {
      }
 
      novo(form: FormControl) {
-          if(this.isEditado){
-               this.router.navigate(['/pessoas/novo']);
-          }else {
                form.reset();
                this.pessoa = new Pessoa();
-          }
+
      }
 }

@@ -18,6 +18,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 import { PessoasRoutingModule } from './pessoas-routing.module';
+import { DialogModule } from 'primeng/dialog';
 
 
 
@@ -42,7 +43,8 @@ import { PessoasRoutingModule } from './pessoas-routing.module';
     InputMaskModule,
     SharedModule,
     HttpClientModule,
-    PessoasRoutingModule
+    PessoasRoutingModule,
+    DialogModule
   ],
   exports: [  ]
 })

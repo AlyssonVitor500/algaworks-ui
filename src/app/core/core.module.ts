@@ -23,7 +23,7 @@ import {ProgressBarModule} from 'primeng/progressbar';
 import { InterceptorModule } from '../seguranca/interceptor.module';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.component';
-
+import {DialogModule} from 'primeng/dialog';
 
 
 @NgModule({
@@ -40,7 +40,8 @@ import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.componen
     RouterModule,
     SegurancaModule,
    InterceptorModule,
-   ProgressBarModule
+   ProgressBarModule,
+   DialogModule
 
 
   ],
@@ -52,7 +53,8 @@ import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.componen
      PessoasModule,
      LancamentosModule,
      SharedModule,
-     ProgressBarModule
+     ProgressBarModule,
+     DialogModule
 ],
   providers:[
      LancamentoService,

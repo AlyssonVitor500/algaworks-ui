@@ -1,0 +1,5 @@
+.linha {
+     height: 1vh;
+     background-image: linear-gradient(to right, rgba(46, 151, 177, 0.719), rgb(15, 160, 204));
+
+}
