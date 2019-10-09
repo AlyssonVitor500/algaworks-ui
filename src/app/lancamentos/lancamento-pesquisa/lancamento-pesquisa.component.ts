@@ -29,7 +29,7 @@ export class LancamentoPesquisaComponent implements OnInit {
      display: boolean;
      @ViewChild('tabela', {static: false}) //----> para pegar valor do p-dataTable
       grid;
-
+      ptBr: any;
 
      constructor(
           private lancamentoService: LancamentoService,
@@ -50,6 +50,17 @@ export class LancamentoPesquisaComponent implements OnInit {
 
      ngOnInit() {
           this.title.setTitle('Pesquisa de Lancamentos');
+
+          this.ptBr = {
+            firstDayOfWeek: 0,
+            dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+            dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+            dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+            monthNames: [ "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro" ],
+            monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun","Jul", "Ago", "Set", "Otu", "Nov", "Dez" ],
+            today: 'Hoje',
+            clear: 'Limpar'
+        };
      }
 
      limparBusca(f: FormControl){

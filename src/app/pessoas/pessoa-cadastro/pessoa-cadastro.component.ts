@@ -29,9 +29,12 @@ export class PessoaCadastroComponent implements OnInit  {
        private title: Title
      ) {
 
-        EventEmitterService.get('adicionarPessoa').subscribe(() => {
+        EventEmitterService.get('cadastrarPessoa').subscribe(() => {
             this.novo(this.form);
         });
+        EventEmitterService.get('editarPessoa').subscribe(response => {
+          this.buscarPessoa(response.codigo);
+      });
 
      }
 
@@ -44,6 +47,13 @@ export class PessoaCadastroComponent implements OnInit  {
 
           this.title.setTitle('Criação de Pessoa');
      }
+
+
+     ngOnDestroy(){
+        EventEmitterService.get('adicionarPessoa').unsubscribe();
+
+     }
+
 
      get isEditado()  {
           return Boolean(this.pessoa.codigo);
@@ -77,7 +87,8 @@ export class PessoaCadastroComponent implements OnInit  {
             .then(response => {
               this.toasty.success('Pessoa adicionada com sucesso!');
               form.reset();
-              this.router.navigate(['/pessoas', response.codigo]);
+
+              EventEmitterService.get('refresh').emit();
             })
             .catch(erro => {
                  this.handler.handle(erro);
@@ -89,6 +100,7 @@ export class PessoaCadastroComponent implements OnInit  {
           this.pessoaService.atualizar(this.pessoa)
           .then(response => {
                this.toasty.success('Pessoa atualizada com sucesso!');
+               EventEmitterService.get('refresh').emit();
 
                this.buscarPessoa(response.codigo);
 
@@ -102,3 +114,5 @@ export class PessoaCadastroComponent implements OnInit  {
 
      }
 }
+
+

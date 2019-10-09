@@ -16,18 +16,6 @@ const rotas: Routes = [
           component: LancamentoPesquisaComponent,
           canActivate: [AuthGuard],
           data: { roles: ['ROLE_PESQUISAR_LANCAMENTO']}
-     },
-     {
-          path: 'lancamentos/novo',
-          component: LancamentoCadastroComponent,
-          canActivate: [AuthGuard],
-          data: { roles: ['ROLE_CADASTRAR_LANCAMENTO']}
-     },
-     {
-          path: 'lancamentos/:codigo',
-          component: LancamentoCadastroComponent,
-          canActivate: [AuthGuard],
-          data: { roles: ['ROLE_CADASTRAR_LANCAMENTO']}
      }
 
 ];

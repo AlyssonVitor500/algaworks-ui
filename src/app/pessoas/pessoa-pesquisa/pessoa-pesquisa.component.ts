@@ -10,6 +10,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PessoasService } from '../pessoas.service';
 import { ToastyService } from 'ng2-toasty';
 import { Title } from '@angular/platform-browser';
+import { Pessoa } from 'src/app/core/model';
 
 @Component({
   selector: 'app-pessoa-pesquisa',
@@ -25,7 +26,14 @@ export class PessoaPesquisaComponent implements OnInit{
           private confirmation: ConfirmationService,
           private title: Title,
           private auth: AuthService
-     ) {}
+     ) {
+
+      EventEmitterService.get('refresh').subscribe(() => {
+        this.display = false;
+        this.pesquisarPessoa();
+      });
+
+     }
 
      total = 0;
      filtro = new PessoaFilter();
@@ -108,6 +116,11 @@ export class PessoaPesquisaComponent implements OnInit{
      adicionarNovo(){
         this.display = true;
         EventEmitterService.get('cadastrarPessoa').emit();
+     }
+
+     editar(pessoa: Pessoa){
+        this.display = true;
+        EventEmitterService.get('editarPessoa').emit(pessoa);
      }
 
 }

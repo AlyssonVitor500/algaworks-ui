@@ -17,11 +17,11 @@
           <div class="ui-g-12" >
                <label for="" style="display:
                block">Vencimento</label>
-               <p-calendar [inputStyle]="{ width: '95px' }" name="dataVencimentoInicio" dateFormat="dd/mm/yy" [(ngModel)]="lancamentoFiltro.dataVencimentoInicio"></p-calendar>
+               <p-calendar [inputStyle]="{ width: '95px' }" [locale]="ptBr" name="dataVencimentoInicio" dateFormat="dd/mm/yy" [(ngModel)]="lancamentoFiltro.dataVencimentoInicio"></p-calendar>
 
 
                <label for="">Até</label>
-               <p-calendar [inputStyle]="{ width: '95px' }" name="dataVencimentoFim" dateFormat="dd/mm/yy" [(ngModel)]="lancamentoFiltro.dataVencimentoFim"></p-calendar>
+               <p-calendar [inputStyle]="{ width: '95px' }" [locale]="ptBr" name="dataVencimentoFim" dateFormat="dd/mm/yy" [(ngModel)]="lancamentoFiltro.dataVencimentoFim"></p-calendar>
           </div>
 
           <div class="ui-g-12">

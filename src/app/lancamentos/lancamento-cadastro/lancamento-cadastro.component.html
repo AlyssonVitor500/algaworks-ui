@@ -14,12 +14,12 @@
 
        <div class="ui-g-6 ui-md-3 ui-fluid">
             <label>Vencimento</label>
-            <p-calendar dateFormat="dd/mm/yy" #venc="ngModel" [(ngModel)]="lancamento.dataVencimento" name="vencimento" required [inline]="false" [readonlyInput]="false" [showIcon]="false"></p-calendar>
+            <p-calendar dateFormat="dd/mm/yy" #venc="ngModel" [(ngModel)]="lancamento.dataVencimento" [locale]="ptBr" name="vencimento" required [inline]="false" [readonlyInput]="false" [showIcon]="false"></p-calendar>
             <app-message [control]="venc" text="Informe o vencimento" error="required"></app-message>
        </div>
        <div class="ui-g-6 ui-md-3 ui-fluid">
             <label>{{ selectButton.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
-            <p-calendar dateFormat="dd/mm/yy" name="pagamento" [(ngModel)]="lancamento.dataPagamento"></p-calendar>
+            <p-calendar dateFormat="dd/mm/yy" [locale]="ptBr" name="pagamento" [(ngModel)]="lancamento.dataPagamento"></p-calendar>
        </div>
 
 
