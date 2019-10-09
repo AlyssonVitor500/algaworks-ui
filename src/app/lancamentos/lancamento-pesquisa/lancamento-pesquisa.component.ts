@@ -27,10 +27,12 @@ export class LancamentoPesquisaComponent implements OnInit {
      lancamentos = [  ];
      paginaAtual = 0;
      display: boolean;
-     @ViewChild('tabela', {static: false}) //----> para pegar valor do p-dataTable
+     display2: boolean;
+      @ViewChild('tabela', {static: false}) //----> para pegar valor do p-dataTable
       grid;
       ptBr: any;
-
+      exp: string;
+      lancamentosExportados =  [];
      constructor(
           private lancamentoService: LancamentoService,
           private toastyService: ToastyService,
@@ -40,6 +42,7 @@ export class LancamentoPesquisaComponent implements OnInit {
           private auth: AuthService
      ) {
         EventEmitterService.get('refreshTable').subscribe(() => {
+            this.title.setTitle('Pesquisa de Lancamentos');
             this.pesquisar();
         });
         EventEmitterService.get('fecharModal').subscribe(() => {
@@ -143,5 +146,65 @@ export class LancamentoPesquisaComponent implements OnInit {
         this.display = true;
         EventEmitterService.get('ativarEdicao').emit(objeto.codigo);
      }
+
+     atualizarTituloEdicao(){
+        this.title.setTitle('Pesquisa de Lancamentos');
+     }
+
+
+
+
+
+
+     // Exportação para XLSX
+
+     pegaTudo() {
+
+      this.lancamentoService.pegaTudo(this.lancamentoFiltro)
+        .then(resultado => {
+
+          this.lancamentosExportados = [];
+          for (let result of resultado){
+                if (result.dataVencimento[1] < 10){
+                    result.dataVencimento[1] = `0${result.dataVencimento[1]}`;
+                }
+                if (result.dataVencimento[2] < 10){
+                    result.dataVencimento[2] = `0${result.dataVencimento[2]}`;
+                }
+                if (result.dataPagamento){
+                  if (result.dataPagamento[1] < 10){
+                    result.dataPagamento[1] = `0${result.dataPagamento[1]}`;
+                  }
+                  if (result.dataPagamento[2] < 10){
+                    result.dataPagamento[2] = `0${result.dataPagamento[2]}`;
+                  }
+                }
+
+
+
+                this.lancamentosExportados.push({
+                    'Código': result.codigo,
+                    'Descrição': result.descricao,
+                    'Data de Vencimento': `${result.dataVencimento[2]}/${result.dataVencimento[1]}/${result.dataVencimento[0]}`,
+                    'Data de Pagamento': result.dataPagamento ? `${result.dataPagamento[2]}/${result.dataPagamento[1]}/${result.dataPagamento[0]}` : '',
+                    'Valor': result.valor,
+                    'Tipo': result.tipo
+
+                });
+          }
+
+
+
+        }).catch(erro => console.log(erro));
+    }
+
+    exportAsXLSX( form : FormControl ) {
+
+        this.lancamentoService.exportToExcel(this.lancamentosExportados, this.exp);
+        form.reset();
+        this.display2 = false;
+
+
+    }
 
 }

@@ -32,11 +32,11 @@ export class LancamentoCadastroComponent  implements OnInit{
           private title: Title
           ){
               EventEmitterService.get('ativarEdicao').subscribe(objeto =>{
-
-                   this.carregarLancamento(objeto);
+                  this.atualizarTituloEdicao();
+                  this.carregarLancamento(objeto);
                 });
                 EventEmitterService.get('ativarNovo').subscribe(() => {
-
+                    this.title.setTitle('Novo Lancamento');
                     this.novo(this.form);
 
                 });
@@ -53,10 +53,6 @@ export class LancamentoCadastroComponent  implements OnInit{
 
 
         ngOnInit() {
-
-
-               this.title.setTitle('Novo Lancamento');
-
 
 
 
@@ -77,7 +73,8 @@ export class LancamentoCadastroComponent  implements OnInit{
         }
 
         ngOnDestroy() {
-          EventEmitterService.get('ativarEdicao').subscribe(objeto => {    this.carregarLancamento(objeto);
+          EventEmitterService.get('ativarEdicao').subscribe(objeto => {
+            this.carregarLancamento(objeto);
          }).unsubscribe();
 
          EventEmitterService.get('ativarNovo').subscribe(() => {
@@ -92,7 +89,6 @@ export class LancamentoCadastroComponent  implements OnInit{
                .then(response => {
                     console.log(response);
                     this.lancamento =  response;
-                    this.atualizarTituloEdicao();
                })
                .catch(erro => this.handleService.handle(erro));
         }
@@ -144,7 +140,6 @@ export class LancamentoCadastroComponent  implements OnInit{
                this.lancamentoService.atualizar(this.lancamento)
                .then(response => {
                     this.lancamento = response;
-                    this.atualizarTituloEdicao();
                this.toasty.success('Lancamento editado com sucesso!');
                EventEmitterService.get('refreshTable').emit();
                EventEmitterService.get('fecharModal').emit();

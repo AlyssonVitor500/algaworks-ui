@@ -10,7 +10,6 @@ import { ProgressBarService } from '../shared/progress-bar.service';
 export class AuthInterceptor implements HttpInterceptor{
      constructor(private auth: AuthService, private progressBarService: ProgressBarService) {  }
 
-
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
      this.progressBarService.showProgressBar();
 
