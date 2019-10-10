@@ -1,6 +1,22 @@
-<p-dialog [draggable]="false"  [dismissableMask]="true" [showHeader]="true" [closeOnEscape]="true" [blockScroll]="true"  [modal]="true" [responsive]="true" [baseZIndex]="10000" [(visible)]="display">
+<p-dialog [draggable]="false"  [dismissableMask]="true" [showHeader]="true" [closeOnEscape]="true" [blockScroll]="true"  [modal]="true" [responsive]="true" [baseZIndex]="10000" [(visible)]="display" (onHide)="atualizarTituloEdicao()">
   <app-pessoa-cadastro></app-pessoa-cadastro>
 </p-dialog>
+
+<p-dialog  header="Exportar Pessoas" [draggable]="false"  [dismissableMask]="true" [showHeader]="true" [closeOnEscape]="true" [blockScroll]="true"  [modal]="true" [responsive]="true" [baseZIndex]="10000" [width]="450" [(visible)]="display2" (onHide)="atualizarTituloEdicao(ngF1)">
+
+    <form (ngSubmit)="exportAsXLSX(ngF1) "  #ngF1="ngForm">
+      <div class="ui-fluid">
+        <input pInputText  placeholder="Nome do arquivo para exportar" type="text" [(ngModel)]="exp" name="nome" required /> <br/> <br/>
+
+      </div>
+
+      <p-footer [ngClass]="['text-right']">
+        <button style="width: 30%" [disabled]="ngF1.invalid" class="btn-exportar" type="submit" icon="pi pi-check" pButton label="Salvar"></button>
+      </p-footer>
+    </form>
+
+
+  </p-dialog>
 
 <div class="container">
 
@@ -64,7 +80,10 @@
      <div class="ui-g">
           <div class="ui-g-12">
                <button pButton (click)="adicionarNovo()" icon="pi pi-plus" [disabled]="!auth.temPermissao('ROLE_CADASTRAR_PESSOA')" label="Nova Pessoa"></button>
+
+               <button type="text" class="ml-2" (click)="display2 = true" (click)="pegaTudo()"  pButton icon="pi pi-download" label="Exportar Pessoas"></button>
+              </div>
           </div>
      </div>
 
-</div>
+

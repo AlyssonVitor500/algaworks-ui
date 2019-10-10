@@ -30,6 +30,7 @@ export class PessoaPesquisaComponent implements OnInit{
 
       EventEmitterService.get('refresh').subscribe(() => {
         this.display = false;
+        this.title.setTitle("Listagem de Pessoas");
         this.pesquisarPessoa();
       });
 
@@ -41,10 +42,12 @@ export class PessoaPesquisaComponent implements OnInit{
      @ViewChild('tabela', {static: false})
      tabela;
      display: boolean;
+     display2: boolean;
+     exp: string;
+     pessoasExportadas;
 
      ngOnInit() {
           this.title.setTitle('Listagem de Pessoas');
-
      }
 
      limparBusca(f: FormControl){
@@ -64,8 +67,7 @@ export class PessoaPesquisaComponent implements OnInit{
           .then(pessoa => {
                this.pessoas = pessoa.content;
                this.total = pessoa.totalElements;
-
-
+               this.title.setTitle("Listagem de Pessoas");
           });
      }
 
@@ -122,6 +124,50 @@ export class PessoaPesquisaComponent implements OnInit{
         this.display = true;
         EventEmitterService.get('editarPessoa').emit(pessoa);
      }
+
+
+      // Exportação para XLSX
+
+      pegaTudo() {
+
+          this.pessoaService.pegaTudo(this.filtro)
+            .then(resultado => {
+
+              this.pessoasExportadas = [];
+              for (let result of resultado){
+
+                    this.pessoasExportadas.push({
+                        'Código': result.codigo,
+                        'Estado': result.endereco.estado,
+                        'Cidade': result.endereco.cidade,
+                        'Bairro': result.endereco.bairro,
+                        'Logradouro': result.endereco.logradouro,
+                        'Número': result.endereco.numero,
+                        'Complemento': result.endereco.complemento,
+                        'Status': result.ativo ? 'Ativo' : 'Inativo'
+                    });
+              }
+
+
+
+            }).catch(erro => console.log(erro));
+        }
+
+        exportAsXLSX( form : FormControl ) {
+
+            this.pessoaService.exportToExcel(this.pessoasExportadas, this.exp);
+            form.reset();
+            this.display2 = false;
+        }
+
+        atualizarTituloEdicao(form? : FormControl){
+
+          this.title.setTitle('Listagem de Pessoas');
+          if (form){
+            form.reset();
+          }
+
+        }
 
 }
 

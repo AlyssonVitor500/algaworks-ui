@@ -13,8 +13,8 @@
   <ul class="navbar-menu" id="toggle-item-menu">
       <li class="navbar-usuario">{{ auth.jwtPayload?.nome }}</li>
       <li class="navbar-menuitem" routerLinkActive="ativo"
-      *ngIf="auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO')" ><a routerLink="/lancamentos">Lançamentos</a></li>
-      <li class="navbar-menuitem" *ngIf="auth.temPermissao('ROLE_PESQUISAR_PESSOA')" routerLinkActive="ativo"><a routerLink="/pessoas">Pessoas</a></li>
+      *ngIf="auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO')" ><a routerLink="/lancamentos" (click)="mostrarMenu(false)">Lançamentos</a></li>
+      <li class="navbar-menuitem" *ngIf="auth.temPermissao('ROLE_PESQUISAR_PESSOA')" routerLinkActive="ativo"><a routerLink="/pessoas" (click)="mostrarMenu(false)">Pessoas</a></li>
       <li class="navbar-menuitem"  style="cursor: pointer"><a (click)="logout()">Logout</a></li>
     </ul>
 

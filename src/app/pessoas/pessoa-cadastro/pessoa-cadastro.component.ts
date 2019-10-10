@@ -30,6 +30,7 @@ export class PessoaCadastroComponent implements OnInit  {
      ) {
 
         EventEmitterService.get('cadastrarPessoa').subscribe(() => {
+
             this.novo(this.form);
         });
         EventEmitterService.get('editarPessoa').subscribe(response => {
@@ -45,12 +46,13 @@ export class PessoaCadastroComponent implements OnInit  {
                this.buscarPessoa(codigoParams);
           }
 
-          this.title.setTitle('Criação de Pessoa');
+
      }
 
 
      ngOnDestroy(){
         EventEmitterService.get('adicionarPessoa').unsubscribe();
+        EventEmitterService.get('editarPessoa').unsubscribe();
 
      }
 
@@ -110,6 +112,7 @@ export class PessoaCadastroComponent implements OnInit  {
 
      novo(form: FormControl) {
                form.reset();
+               this.title.setTitle('Criação de Pessoa');
                this.pessoa = new Pessoa();
 
      }
