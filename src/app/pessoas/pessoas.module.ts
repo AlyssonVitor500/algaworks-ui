@@ -16,6 +16,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 import { PessoasRoutingModule } from './pessoas-routing.module';
 import { DialogModule } from 'primeng/dialog';
@@ -44,7 +45,8 @@ import { DialogModule } from 'primeng/dialog';
     SharedModule,
     HttpClientModule,
     PessoasRoutingModule,
-    DialogModule
+    DialogModule,
+    RadioButtonModule
   ],
   exports: [  ]
 })
